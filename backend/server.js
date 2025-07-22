@@ -3,6 +3,7 @@
 // On importe les outils dont on a besoin
 const express = require('express');
 const dotenv = require('dotenv');
+const cors = require('cors');
 // On dit à dotenv de charger les variables du fichier .env
 dotenv.config();
 
@@ -26,6 +27,7 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 
 // Middleware pour accepter les données au format JSON
+app.use(cors());
 app.use(express.json());
 // Middleware pour accepter les données de formulaires URL-encoded
 app.use(express.urlencoded({ extended: false }));

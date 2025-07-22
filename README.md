@@ -7,15 +7,19 @@ HabitTracker est une application web full-stack développée avec la stack MERN,
 
 ## Captures d'écran
 
- Tableau de Bord (Thème Clair) | Tableau de Bord (Thème Sombre) |
-![Tableau de Bord](screenshots/dashboard-light.png) 
-![Tableau de Bord Sombre](screenshots/dashboard-dark.png) |
+ Tableau de Bord (Thème Clair) 
+![Tableau de Bord](./screenshots/dashboard-light.PNG) 
+
+Tableau de Bord (Thème Sombre)
+![Tableau de Bord Sombre](./screenshots/dashboard-dark.PNG) |
 
 Page d'Ajout d'Habitude | Vue Mobile |
 
-![Formulaire d'ajout](screenshots/add-habit.jpg) 
+![Formulaire d'ajout](./screenshots/add-habit.jpg) 
 
-![Vue Mobile](screenshots/mobile.jpg) |
+Tableau de bord | Vue mobile
+
+![Vue Mobile](./screenshots/mobile.jpg) |
 
 
 

@@ -1,7 +1,10 @@
 // frontend/src/feature/auth/authService.js
 import axios from 'axios';
 
-const API_URL = 'https://habit-tracker-api-2v74.onrender.com/api/users/';
+const API_BASE_URL = 'https://habit-tracker-api-2v74.onrender.com';
+
+const API_URL = API_BASE_URL + '/api/users/';
+
 
 // Inscrire un utilisateur
 const register = async (userData) => {
@@ -78,8 +81,7 @@ const uploadAvatar = async (formData, token) => {
 const authService = {
   register,
   login,
-  updateDetails,  // On ajoute la nouvelle fonction ici
-  changePassword, // Et ici
+  updateDetails,  
   uploadAvatar,
 };
 

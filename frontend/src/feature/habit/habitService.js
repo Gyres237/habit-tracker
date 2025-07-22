@@ -1,7 +1,9 @@
 // frontend/src/feature/habits/habitService.js
 import axios from 'axios';
 
-const API_URL = 'https://habit-tracker-api-2v74.onrender.com/api/users/';
+const API_BASE_URL = 'https://habit-tracker-api-2v74.onrender.com';
+
+const API_URL = API_BASE_URL + '/api/habits/';
 
 // Créer une nouvelle habitude
 const createHabit = async (habitData, token) => {

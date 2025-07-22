@@ -1,0 +1,30 @@
+# Fichiers de log et de cache
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Dépendances (ignore TOUS les node_modules)
+**/node_modules
+
+# Fichiers de build (ignore TOUS les dist, build, etc.)
+**/dist
+**/dist-ssr
+**/build
+*.local
+
+# Fichiers d'environnement (ignore TOUS les .env)
+**/.env*
+
+# Fichiers de l'éditeur et du système d'exploitation
+.idea
+.vscode/
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

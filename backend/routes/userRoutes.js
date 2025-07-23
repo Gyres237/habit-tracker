@@ -17,7 +17,7 @@ router.post('/login', loginUser); // Route pour la connexion
 // On crée une route GET pour /me et on place le middleware `protect` juste avant le contrôleur `getMe`
 router.route('/me').get(protect, getMe).put(protect, updateUserDetails);
 
-router.put('/change-password', protect, changeUserPassword);
+router.post('/change-password', protect, changeUserPassword);
 router.post('/upload-avatar', protect, upload.single('avatar'), uploadAvatar);
 
 module.exports = router;

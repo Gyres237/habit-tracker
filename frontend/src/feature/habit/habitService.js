@@ -24,6 +24,7 @@ const getHabits = async (token) => {
             Authorization: `Bearer ${token}`,
         },
     };
+     alert(`Appel API vers : GET ${API_URL}`);
 
     const response = await axios.get(API_URL, config);
     return response.data;

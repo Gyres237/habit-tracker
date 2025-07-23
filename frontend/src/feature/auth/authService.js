@@ -31,7 +31,7 @@ const updateDetails = async (userData, token) => {
             Authorization: `Bearer ${token}`,
         },
     };
-    const response = await axios.put('/api/users/me', userData, config);
+    const response = await axios.put(API_URL + 'me', userData, config);
 
     // On met aussi à jour le localStorage avec les nouvelles informations
      if (response.data) {
@@ -54,7 +54,7 @@ const changePassword = async (passwordData, token) => {
             Authorization: `Bearer ${token}`,
         },
     };
-    const response = await axios.put('/api/users/change-password', passwordData, config);
+    const response = await axios.put(API_URL + 'change-password', passwordData, config);
     return response.data;
 };
 
@@ -65,7 +65,7 @@ const uploadAvatar = async (formData, token) => {
             Authorization: `Bearer ${token}`,
         },
     };
-    const response = await axios.post('/api/users/upload-avatar', formData, config);
+    const response = await axios.post(API_URL + 'upload-avatar', formData, config);
 
     // Mettre à jour le localStorage avec les nouvelles infos (incluant l'avatarUrl)
     if (response.data) {

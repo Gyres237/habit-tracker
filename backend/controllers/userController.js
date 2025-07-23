@@ -180,6 +180,6 @@ module.exports = {
     loginUser,
     getMe,
     updateUserDetails, 
-    changeUserPassword,
     uploadAvatar,
+    changeUserPassword,
 };

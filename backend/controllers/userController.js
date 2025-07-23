@@ -150,45 +150,43 @@ const updateUserDetails = asyncHandler(async (req, res) => {
 // Dans backend/controllers/userController.js
 
 const changeUserPassword = asyncHandler(async (req, res) => {
-    // On log l'entrée dans la fonction pour le débogage
-     console.log('[LOG] Entrée dans la fonction changeUserPassword.');
-    console.log('[LOG] Données reçues (req.body):', req.body);
+    // --- DÉBUT DU BLOC DE DÉBOGAGE ---
+    console.log('--- [CHANGE_PASSWORD] Début de la fonction ---');
+    console.log('ID de l\'utilisateur (depuis token):', req.user.id);
+    console.log('Données reçues (req.body):', req.body);
+    // --- FIN DU BLOC DE DÉBOGAGE ---
+
     const { oldPassword, newPassword } = req.body;
 
-    // Validation des entrées
     if (!oldPassword || !newPassword) {
+        console.log('[CHANGE_PASSWORD] Erreur: Mots de passe manquants.');
         res.status(400);
-        throw new Error('Veuillez fournir l\'ancien et le nouveau mot de passe.');
+        throw new Error('Veuillez fournir l\'ancien et le nouveau mot de passe');
     }
 
-    try {
-        const user = await User.findById(req.user.id);
+    const user = await User.findById(req.user.id);
 
-        if (!user) {
-            res.status(404);
-            throw new Error('Utilisateur non trouvé.');
-        }
+    if (!user) {
+        console.log('[CHANGE_PASSWORD] Erreur: Utilisateur non trouvé en base.');
+        res.status(404);
+        throw new Error('Utilisateur non trouvé');
+    }
+    
+    console.log('[CHANGE_PASSWORD] Utilisateur trouvé. Comparaison des mots de passe...');
+    const isMatch = await bcrypt.compare(oldPassword, user.password);
 
-        // Vérification de l'ancien mot de passe
-        const isMatch = await bcrypt.compare(oldPassword, user.password);
-        if (!isMatch) {
-            res.status(401); // 401 Unauthorized est plus approprié ici
-            throw new Error('L\'ancien mot de passe est incorrect.');
-        }
-
-        // Hachage et sauvegarde du nouveau mot de passe
+    if (isMatch) {
+        console.log('[CHANGE_PASSWORD] Ancien mot de passe correct. Hachage du nouveau...');
         const salt = await bcrypt.genSalt(10);
         user.password = await bcrypt.hash(newPassword, salt);
         await user.save();
-
-        res.status(200).json({ message: 'Mot de passe changé avec succès.' });
-
-    } catch (error) {
-        // Si une erreur se produit (ex: problème de base de données), on l'attrape ici
-        console.error("Erreur inattendue lors du changement de mot de passe:", error);
-        // On renvoie une erreur générique au lieu de laisser le serveur crasher
-        res.status(500);
-        throw new Error('Une erreur serveur est survenue.');
+        
+        console.log('[CHANGE_PASSWORD] Succès ! Mot de passe sauvegardé.');
+        res.json({ message: 'Mot de passe changé avec succès' });
+    } else {
+        console.log('[CHANGE_PASSWORD] Erreur: Ancien mot de passe incorrect.');
+        res.status(401);
+        throw new Error('Ancien mot de passe incorrect');
     }
 });
 

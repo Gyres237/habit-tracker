@@ -26,6 +26,8 @@ const PORT = process.env.PORT || 5000;
 // Le reste est comme avant
 const app = express();
 
+
+
 // Middleware pour accepter les données au format JSON
 app.use(cors());
 app.use(express.json());

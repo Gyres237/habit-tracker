@@ -52,7 +52,7 @@ const changePassword = async (passwordData, token) => {
             Authorization: `Bearer ${token}`,
         },
     };
-      alert(`Appel API vers : PUT ${API_URL}change-password`);
+     
     const response = await axios.put(API_URL + 'change-password', passwordData, config);
     return response.data;
 };
@@ -82,6 +82,7 @@ const authService = {
   login,
   updateDetails,  
   uploadAvatar,
+  changePassword,
 };
 
 export default authService;

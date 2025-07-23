@@ -16,7 +16,7 @@ function AccountSettings() {
 
   const onPasswordSubmit = async (e) => {
     e.preventDefault();
-     alert('onPasswordSubmit a été déclenché !');
+  
     if (passwordData.newPassword !== passwordData.confirmPassword) {
       toast.error('Les nouveaux mots de passe ne correspondent pas.');
       return;

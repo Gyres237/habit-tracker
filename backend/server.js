@@ -46,7 +46,7 @@ app.use('/api/habits', require('./routes/habitRoutes'));
 app.use(errorHandler);
 
 
-console.log('Démarrage du planificateur de tâches pour les statuts...');
+
 startStatusUpdater();
 startNotificationScheduler();
 

@@ -18,7 +18,6 @@ router.post('/login', loginUser); // Route pour la connexion
 router.route('/me').get(protect, getMe).put(protect, updateUserDetails);
 
 router.use('/change-password', (req, res, next) => {
-    console.log(`[LOG] Requête reçue sur /change-password. Méthode: ${req.method}`);
     next();
 });
 

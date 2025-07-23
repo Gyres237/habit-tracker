@@ -134,8 +134,8 @@ const updateUserDetails = asyncHandler(async (req, res) => {
 
         const updatedUser = await user.save();
 
-        // On renvoie les nouvelles informations avec le token existant
-       res.json({ // On renvoie juste les infos, pas besoin de nouveau token
+       
+       res.json({ 
     _id: updatedUser._id,
     name: updatedUser.name,
     email: updatedUser.email,
@@ -147,19 +147,12 @@ const updateUserDetails = asyncHandler(async (req, res) => {
     }
 });
 
-// Dans backend/controllers/userController.js
 
 const changeUserPassword = asyncHandler(async (req, res) => {
-    // --- DÉBUT DU BLOC DE DÉBOGAGE ---
-    console.log('--- [CHANGE_PASSWORD] Début de la fonction ---');
-    console.log('ID de l\'utilisateur (depuis token):', req.user.id);
-    console.log('Données reçues (req.body):', req.body);
-    // --- FIN DU BLOC DE DÉBOGAGE ---
 
     const { oldPassword, newPassword } = req.body;
 
     if (!oldPassword || !newPassword) {
-        console.log('[CHANGE_PASSWORD] Erreur: Mots de passe manquants.');
         res.status(400);
         throw new Error('Veuillez fournir l\'ancien et le nouveau mot de passe');
     }
@@ -167,24 +160,19 @@ const changeUserPassword = asyncHandler(async (req, res) => {
     const user = await User.findById(req.user.id);
 
     if (!user) {
-        console.log('[CHANGE_PASSWORD] Erreur: Utilisateur non trouvé en base.');
         res.status(404);
         throw new Error('Utilisateur non trouvé');
     }
     
-    console.log('[CHANGE_PASSWORD] Utilisateur trouvé. Comparaison des mots de passe...');
     const isMatch = await bcrypt.compare(oldPassword, user.password);
 
     if (isMatch) {
-        console.log('[CHANGE_PASSWORD] Ancien mot de passe correct. Hachage du nouveau...');
         const salt = await bcrypt.genSalt(10);
         user.password = await bcrypt.hash(newPassword, salt);
         await user.save();
         
-        console.log('[CHANGE_PASSWORD] Succès ! Mot de passe sauvegardé.');
         res.json({ message: 'Mot de passe changé avec succès' });
     } else {
-        console.log('[CHANGE_PASSWORD] Erreur: Ancien mot de passe incorrect.');
         res.status(401);
         throw new Error('Ancien mot de passe incorrect');
     }

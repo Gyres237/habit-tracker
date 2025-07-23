@@ -25,7 +25,7 @@ const startStatusUpdater = () => {
             }).populate('user');
 
             if (missedHabits.length > 0) {
-                console.log(`[STATUS] ${missedHabits.length} tâche(s) à marquer comme manquée(s).`);
+                
 
                 // 2. On envoie les notifications d'échec
                 missedHabits.forEach(habit => {
@@ -39,7 +39,7 @@ const startStatusUpdater = () => {
                          try {
                               transporter.sendMail(mailOptions);
                               } catch (emailError) {
-                              console.log(`[NOTIF] Réponse du serveur Gmail: ${info.response}`);
+                              
                              }
                     }
                 });

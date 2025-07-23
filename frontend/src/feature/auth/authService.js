@@ -1,7 +1,7 @@
 // frontend/src/feature/auth/authService.js
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL + '/api/users/';
+const API_URL = 'https://habit-tracker-api-2v74.onrender.com/api/users/';
 
 
 // Inscrire un utilisateur

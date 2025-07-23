@@ -54,7 +54,7 @@ const changePassword = async (passwordData, token) => {
             Authorization: `Bearer ${token}`,
         },
     };
-    const response = await axios.post(API_URL + 'change-password', passwordData, config);
+    const response = await axios.put(API_URL + 'change-password', passwordData, config);
     return response.data;
 };
 

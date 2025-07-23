@@ -150,6 +150,9 @@ const updateUserDetails = asyncHandler(async (req, res) => {
 // Dans backend/controllers/userController.js
 
 const changeUserPassword = asyncHandler(async (req, res) => {
+    // On log l'entrée dans la fonction pour le débogage
+     console.log('[LOG] Entrée dans la fonction changeUserPassword.');
+    console.log('[LOG] Données reçues (req.body):', req.body);
     const { oldPassword, newPassword } = req.body;
 
     // Validation des entrées

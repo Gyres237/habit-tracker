@@ -17,7 +17,12 @@ router.post('/login', loginUser); // Route pour la connexion
 // On crée une route GET pour /me et on place le middleware `protect` juste avant le contrôleur `getMe`
 router.route('/me').get(protect, getMe).put(protect, updateUserDetails);
 
-router.post('/change-password', protect, changeUserPassword);
+router.use('/change-password', (req, res, next) => {
+    console.log(`[LOG] Requête reçue sur /change-password. Méthode: ${req.method}`);
+    next();
+});
+
+router.put('/change-password', protect, changeUserPassword);
 router.post('/upload-avatar', protect, upload.single('avatar'), uploadAvatar);
 
 module.exports = router;

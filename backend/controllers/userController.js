@@ -147,28 +147,45 @@ const updateUserDetails = asyncHandler(async (req, res) => {
     }
 });
 
+// Dans backend/controllers/userController.js
+
 const changeUserPassword = asyncHandler(async (req, res) => {
     const { oldPassword, newPassword } = req.body;
 
+    // Validation des entrées
     if (!oldPassword || !newPassword) {
         res.status(400);
-        throw new Error('Veuillez fournir l\'ancien et le nouveau mot de passe');
+        throw new Error('Veuillez fournir l\'ancien et le nouveau mot de passe.');
     }
 
-    const user = await User.findById(req.user.id);
+    try {
+        const user = await User.findById(req.user.id);
 
-    // On vérifie si l'ancien mot de passe correspond
-    if (user && (await bcrypt.compare(oldPassword, user.password))) {
-        // Hacher le nouveau mot de passe
+        if (!user) {
+            res.status(404);
+            throw new Error('Utilisateur non trouvé.');
+        }
+
+        // Vérification de l'ancien mot de passe
+        const isMatch = await bcrypt.compare(oldPassword, user.password);
+        if (!isMatch) {
+            res.status(401); // 401 Unauthorized est plus approprié ici
+            throw new Error('L\'ancien mot de passe est incorrect.');
+        }
+
+        // Hachage et sauvegarde du nouveau mot de passe
         const salt = await bcrypt.genSalt(10);
         user.password = await bcrypt.hash(newPassword, salt);
-
         await user.save();
 
-        res.json({ message: 'Mot de passe changé avec succès' });
-    } else {
-        res.status(401); // Non autorisé
-        throw new Error('Ancien mot de passe incorrect');
+        res.status(200).json({ message: 'Mot de passe changé avec succès.' });
+
+    } catch (error) {
+        // Si une erreur se produit (ex: problème de base de données), on l'attrape ici
+        console.error("Erreur inattendue lors du changement de mot de passe:", error);
+        // On renvoie une erreur générique au lieu de laisser le serveur crasher
+        res.status(500);
+        throw new Error('Une erreur serveur est survenue.');
     }
 });
 
